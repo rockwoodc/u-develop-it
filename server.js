@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3003;
 const app = express();
 
 // Express middleware
@@ -21,7 +21,7 @@ const db = mysql.createConnection(
     console.log('Connected to the election database.')
   );
 
-//returns an array of each row of data
+//returns an array of each row of data--key component to allow SQL commands to be written in node
 db.query(`SELECT * FROM candidates`, (err, rows) => {
     console.log(rows);
   });
