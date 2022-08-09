@@ -15,16 +15,44 @@ const db = mysql.createConnection(
       // Your MySQL username,
       user: 'root',
       // Your MySQL password
-      password: '',
+      password: 'Rockw00d!',
       database: 'election'
     },
     console.log('Connected to the election database.')
   );
 
+// GET a single candidate
+// db.query(`SELECT * FROM candidates WHERE id = 1`, (err, row) => {
+//   if (err) {
+//     console.log(err);
+//   }
+//   console.log(row);
+// });
+
+// // Create a candidate
+// const sql = `INSERT INTO candidates (id, first_name, last_name, industry_connected) 
+//               VALUES (?,?,?,?)`;
+// const params = [1, 'Ronald', 'Firbank', 1];
+
+// db.query(sql, params, (err, result) => {
+//   if (err) {
+//     console.log(err);
+//   }
+//   console.log(result);
+// });
+
+// Delete a candidate
+// db.query(`DELETE FROM candidates WHERE id = ?`, 1, (err, result) => {
+//   if (err) {
+//     console.log(err);
+//   }
+//   console.log(result);
+// });
+
 //returns an array of each row of data--key component to allow SQL commands to be written in node
-db.query(`SELECT * FROM candidates`, (err, rows) => {
-    console.log(rows);
-  });
+// db.query(`SELECT * FROM candidates`, (err, rows) => {
+//     console.log(rows);
+//   });
 
 // Default response for any other request (Not Found)--has to be last
 app.use((req, res) => {
