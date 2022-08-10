@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 // Express middleware
@@ -55,6 +55,28 @@ app.get('/api/candidate/:id', (req, res) => {
   });
 });
 
+// Delete a candidate
+app.delete('/api/candidate/:id', (req, res) => {
+  const sql = `DELETE FROM candidates WHERE id = ?`;
+  const params = [req.params.id];
+
+  db.query(sql, params, (err, result) => {
+    if (err) {
+      res.statusMessage(400).json({ error: res.message });
+    } else if (!result.affectedRows) {
+      res.json({
+        message: 'Candidate not found'
+      });
+    } else {
+      res.json({
+        message: 'deleted',
+        changes: result.affectedRows,
+        id: req.params.id
+      });
+    }
+  });
+});
+
 // // Create a candidate
 // const sql = `INSERT INTO candidates (id, first_name, last_name, industry_connected) 
 //               VALUES (?,?,?,?)`;
@@ -67,13 +89,6 @@ app.get('/api/candidate/:id', (req, res) => {
 //   console.log(result);
 // });
 
-// Delete a candidate
-// db.query(`DELETE FROM candidates WHERE id = ?`, 1, (err, result) => {
-//   if (err) {
-//     console.log(err);
-//   }
-//   console.log(result);
-// });
 
 //returns an array of each row of data--key component to allow SQL commands to be written in node
 // db.query(`SELECT * FROM candidates`, (err, rows) => {
